@@ -36,7 +36,7 @@ This might take a while as Skia is big.
 Once completed, in the build directory, run:
 
 ```bash
-make
+cmake --build . 
 ```
 
 # Run
