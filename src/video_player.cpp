@@ -101,7 +101,6 @@ void VideoPlayer::UpdateProgressBar()
 void VideoPlayer::SimulateBuffering()
 {
     m_progressBar->SetLoading(true);
-    m_isPlaying = false;
     auto TWO_SECONDS = 2000;
     m_bufferingTimer.Start(TWO_SECONDS, true);
 }
