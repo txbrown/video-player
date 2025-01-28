@@ -293,3 +293,13 @@ Chapter *ProgressBar::GetChapterAtProgress(double progress)
   }
   return nullptr;
 }
+
+double ProgressBar::GetProgress() const
+{
+  return m_progress;
+}
+
+bool ProgressBar::IsLoading() const
+{
+  return m_isLoading;
+}

@@ -5,9 +5,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(FETCHCONTENT_BASE_DIR "${CMAKE_SOURCE_DIR}/third_party" CACHE PATH "Location for downloaded dependencies")
 
-
 include(FetchContent)
 
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+
+FetchContent_MakeAvailable(googletest)
 
 FetchContent_Declare(
     wxwidgets
@@ -35,7 +40,7 @@ FetchContent_Declare(
 FetchContent_GetProperties(skia)
 if(NOT skia_POPULATED)
     message(STATUS "Fetching Skia - this may take a few minutes...")
-    FetchContent_Populate(skia)
+    FetchContent_MakeAvailable(skia)
     
     message(STATUS "Setting up Skia dependencies...")
     execute_process(
@@ -122,12 +127,15 @@ add_executable(video-player
     src/progress_bar.cpp
     src/play_button.cpp
     src/pause_button.cpp
+    ${skia_SOURCE_DIR}/tools
 )
 
 target_include_directories(video-player PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${skia_SOURCE_DIR}
+    ${skia_SOURCE_DIR}/tools
+    ${skia_SOURCE_DIR}/include/gpu
 )
 
 target_link_libraries(video-player PRIVATE
@@ -150,3 +158,6 @@ if(APPLE)
         "-framework Foundation"
     )
 endif()
+
+# Include tests subdirectory
+add_subdirectory(src/tests)

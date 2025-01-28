@@ -20,6 +20,8 @@ public:
   void AddChapter(const Chapter &chapter);
   void ClearChapters();
   void SetLoading(bool isLoading);
+  double GetProgress() const;
+  bool IsLoading() const;
 
   // Event handlers
   void OnSeek(const std::function<void(double)> &callback);
